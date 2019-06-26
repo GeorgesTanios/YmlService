@@ -43,8 +43,8 @@ verbs:
   
   verb1:
     description: #what this function do
-    request: $/schemas/ #concerned-schema
+    request: $/schemas/ #---
     reply:
-      success: $/schemas/none
+      success: $/schemas/ #---
       set-state:
         #actionname : status [Yes || No]
