@@ -1,0 +1,87 @@
+%YAML 1.3
+---
+afbidl: "0.1"
+
+info:
+  apiname: speed-regulation
+  title: Service for regulation of the speed of vehicule
+  description:
+        Speed Regulator service is used for stabilize the speed of the car
+        and precizing to system the speed that we would stablize on it
+  author: AGL
+  maintainer: Scott Rifenbark
+  homepage: https://doc.automotivelinux.org/...
+ 
+ # ************* J'ai pas toucher ********
+tools:
+
+    afb-genskel:
+        scope: static
+        prefix: req_
+        postfix: _cb
+        init: init_gps
+
+    doc:
+        id: gps-api
+        keywords: gps
+        author:
+        version:
+        src_prefix: api-gps
+        chapters:
+        - name: Abstract
+          url: abstract.md
+        - name: User Guide
+          url: userguide.md
+#**********************************
+          
+verbs:
+
+    Set-regulator:
+        description: engage to regulator/speed events
+        request: $/schemas/engaged-reg
+        reply:
+            success:
+                schema: $/schemas/none
+                set-state:
+                    engaged: yes
+            _: An error can be returned because the service isn't ready yet
+
+    desacativate-regulator:
+        description: disengaged to regulator/speed events
+        request: $/schemas/engaged-reg
+        reply:
+            success:
+                schema: $/schemas/none
+                set-state:
+                    engaged: no
+
+    btn-pause:
+        description: pause the service speed regulator 
+        request: $/schemas/pause
+        reply:
+            success: $/schemas/pause
+            ser-state:
+                pause: yes
+                
+     paddle-speed-presse:
+        description: pause the service speed regulator 
+        request: $/schemas/pause
+        reply:
+            success: $/schemas/pause
+            ser-state:
+                pause: yes
+                
+     paddle-speed-release:
+        description: when releasing speed paddle 
+        request: $/schemas/pause
+        reply:
+            success: $/schemas/engaged-reg
+            ser-state:
+                pause: no
+                
+     btn-continue: 
+        description: when clicking 
+                
+                
+
+
