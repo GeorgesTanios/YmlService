@@ -98,6 +98,32 @@ verbs:
             success: 
             set-state:
                 engaged: no
+                
+                
+events:
+    set-regulator:
+        schema: $/schemas/engaged-reg
+        when-state:
+            engaged: yes
+     ...
+state-machines:
+    engaged:
+        states: [ no, yes ]
+        initial: no
+    pause:
+        state: [ no, yes ]
+        initial: no
+        
+        ...
+        
+# Follow JsonSchema specification (https://json-schema.org/)
+schemas:
+    engaged-reg: 
+    title: Description of the event engaged or disangaged to the service 
+    type : object
+    properties:
+        value : {enum: [ engaged ]}
+    required: [ value ] 
     
 
                 
