@@ -60,28 +60,72 @@ verbs:
         request: $/schemas/pause
         reply:
             success: $/schemas/pause
-            ser-state:
+            set-state:
                 pause: yes
+                engaged: no
                 
      paddle-speed-presse:
         description: pause the service speed regulator 
         request: $/schemas/pause
         reply:
             success: $/schemas/pause
-            ser-state:
+            set-state:
                 pause: yes
+                engaged: no
                 
      paddle-speed-release:
         description: when releasing speed paddle 
         request: $/schemas/pause
         reply:
             success: $/schemas/engaged-reg
-            ser-state:
+            set-state:
                 pause: no
+                engaged: yes
                 
      btn-continue: 
-        description: when clicking 
+        description: when clicking to the continue button the service continue 
+        request: $/schemas
+        reply:
+            success: $/schemas/engaged-reg
+            set-state:
+                pause: no
+                engaged: yes
+
+    paddle-frein-presse: 
+        description: after pressing on frein paddle this service regulator speed stop and return to the initial state.
+        request: $/schemas
+        reply:
+            success: 
+            set-state:
+                engaged: no
                 
-                #georges
+                
+events:
+    set-regulator:
+        schema: $/schemas/engaged-reg
+        when-state:
+            engaged: yes
+     ...
+state-machines:
+    engaged:
+        states: [ no, yes ]
+        initial: no
+    pause:
+        state: [ no, yes ]
+        initial: no
+        
+        ...
+        
+# Follow JsonSchema specification (https://json-schema.org/)
+schemas:
+    engaged-reg: 
+    title: Description of the event engaged or disangaged to the service 
+    type : object
+    properties:
+        value : {enum: [ engaged ]}
+    required: [ value ] 
+    
+
+                
 
 
