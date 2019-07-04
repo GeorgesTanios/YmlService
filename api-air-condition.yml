@@ -1,0 +1,54 @@
+%YAML 1.3
+---
+
+afbidl: "0.1"
+#** a modifier 
+info:
+  apiname: aircon
+  title: Service for air conditionning
+  description:
+    Air Condition Service is maintained to control the temperature
+    degree in the vehicule, with two method automatic or manual
+  author: AGL.stg
+  maintainer: MS
+  homepage: https://doc.automotivelinux.org/...
+#** ****
+tools:
+
+    afb-genskel:
+        scope: static
+        prefix: req_
+        postfix: _cb
+        init: init_gps
+
+    doc:
+        id: gps-api
+        keywords: gps
+        author:
+        version:
+        src_prefix: api-gps
+        chapters:
+        - name: Abstract
+          url: abstract.md
+        - name: User Guide
+          url: userguide.md
+
+verbs:
+
+  ac-stop:
+    description: air condition controller service is ready to run
+    request: $/schemas/ac-stop
+    reply:
+      success: $/schemas/none
+      set-state:
+        #actionname : status [Yes || No]
+
+  ac-run:
+    description: air condition controller service is in service
+    request: $/schemas/ac-run
+    reply:
+      success: $/schemas/none
+      set-state:
+        #actionname : status [Yes || No]
+  
+  
