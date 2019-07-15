@@ -12,7 +12,7 @@ info:
   maintainer: Scott Rifenbark
   homepage: https://doc.automotivelinux.org/...
  
- # ************* J'ai pas toucher *******************
+#*********J'ai pas toucher*********
 tools:
 
     afb-genskel:

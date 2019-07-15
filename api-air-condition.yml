@@ -2,7 +2,7 @@
 ---
 
 afbidl: "0.1"
-#** a modifier 
+#** a modifier*
 info:
   apiname: aircon
   title: Service for air conditionning
@@ -12,7 +12,7 @@ info:
   author: AGL.stg
   maintainer: MS
   homepage: https://doc.automotivelinux.org/...
-#** ****
+#**************
 tools:
 
     afb-genskel:
