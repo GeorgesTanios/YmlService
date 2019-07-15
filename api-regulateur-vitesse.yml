@@ -62,7 +62,6 @@ verbs:
             success: $/schemas/pause
             set-state:
                 pause: yes
-                engaged: no
                 
      paddle-speed-presse:
         description: pause the service speed regulator 
@@ -119,11 +118,11 @@ state-machines:
 # Follow JsonSchema specification (https://json-schema.org/)
 schemas:
     engaged-reg: 
-    title: Description of the event engaged or disangaged to the service 
-    type : object
-    properties:
-        value : {enum: [ engaged ]}
-    required: [ value ] 
+        title: Description of the event engaged or disangaged to the service 
+        type : object
+        properties:
+            value : {enum: [ engaged ]}
+        required: [ value ] 
     
 
                 
