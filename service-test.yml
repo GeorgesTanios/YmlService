@@ -49,7 +49,6 @@ verbs:
         reply:
             success:
                 schema: $/schemas/none
-
 				
 events:
     btn-pause:
@@ -57,10 +56,9 @@ events:
 
     btn-resume:
         schema: $/schemas/init
+	
+state-machines:	
 
-
-			
-state-machines:				
 	Initialisation: Disengaged
 	
 	Disengaged:
@@ -88,22 +86,23 @@ state-machines:
                 set-state: Engaged
             error:
                 set-state: Pause
-	Start: 
-		init nextstate: Desengaged
-	
-	Engaged:
-		stop nextstate Desengaged
-	
-	End:
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
-				
+
+schemas:
+    btn-pause:
+        description: mettre le service en veille
+        type: ON
+        permission:
+            current-state: Engaged
+
+            
+
+    btn-resume:
+        description: relancer le service
+        type: switch-button
+        value: OFF
+        permission:
+            current-state: Pause
+    
+    permission:
+        access: [ no, yes ]
+        initial: no
