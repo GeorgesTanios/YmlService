@@ -94,15 +94,9 @@ schemas:
         permission:
             current-state: Engaged
 
-            
-
     btn-resume:
         description: relancer le service
         type: switch-button
         value: OFF
         permission:
             current-state: Pause
-    
-    permission:
-        access: [ no, yes ]
-        initial: no
