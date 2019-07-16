@@ -91,7 +91,7 @@ schemas:
     btn-pause:
         description: mettre le service en veille
         type: switch-button
-        type: ON
+        value: ON
         permission:
             current-state: Engaged
 
