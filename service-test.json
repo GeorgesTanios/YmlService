@@ -1,0 +1,124 @@
+{
+    "afbidl": "0.1",
+    "info": {
+        "apiname": "test service",
+        "title": "Service for geolocation",
+        "description": "test service reports current WGS84 coordinates from GNSS devices via the gpsd application.",
+        "version": "0.1",
+        "author": "AGL",
+        "maintainer": "Scott Rifenbark",
+        "homepage": "https://doc.automotivelinux.org/..."
+    },
+    "tools": {
+        "afb-genskel": {
+            "scope": "static",
+            "prefix": "req_",
+            "postfix": "_cb",
+            "init": "init_test"
+        },
+        "doc": {
+            "id": "test-api",
+            "keywords": "test",
+            "author": null,
+            "version": null,
+            "src_prefix": "api-test",
+            "chapters": [
+                {
+                    "name": "Abstract",
+                    "url": "abstract.md"
+                },
+                {
+                    "name": "User Guide",
+                    "url": "userguide.md"
+                }
+            ]
+        }
+    },
+    "verbs": {
+        "subscribe": {
+            "description": "subscribe to test service",
+            "request": "$/schemas/subscribtion",
+            "reply": {
+                "success": {
+                    "schema": "$/schemas/none"
+                }
+            }
+        },
+        "unsubscribe": {
+            "description": "unsubscribe to test service",
+            "request": "$/schemas/subscribtion",
+            "reply": {
+                "success": {
+                    "schema": "$/schemas/none"
+                }
+            }
+        }
+    },
+    "events": {
+        "btn-pause": {
+            "schema": "$/schemas/init"
+        },
+        "btn-resume": {
+            "schema": "$/schemas/init"
+        }
+    },
+    "state-machines": {
+        "Initialisation": "Disengaged",
+        "Disengaged": {
+            "subscribe": {
+                "success": {
+                    "set-state": "Engaged"
+                },
+                "error": {
+                    "set-state": "Disengaged"
+                }
+            }
+        },
+        "Engaged": {
+            "unsubscribe": {
+                "success": {
+                    "set-state": "Disengaged"
+                },
+                "error": {
+                    "set-state": "Engaged"
+                }
+            },
+            "btn-pause": {
+                "success": {
+                    "set-state": "Pause"
+                },
+                "error": {
+                    "set-status": "Engaged"
+                }
+            }
+        },
+        "Pause": {
+            "btn-resume": {
+                "success": {
+                    "set-state": "Engaged"
+                },
+                "error": {
+                    "set-state": "Pause"
+                }
+            }
+        }
+    },
+    "schemas": {
+        "btn-pause": {
+            "description": "mettre le service en veille",
+            "type": "switch-button",
+            "value": "ON",
+            "permission": {
+                "current-state": "Engaged"
+            }
+        },
+        "btn-resume": {
+            "description": "relancer le service",
+            "type": "switch-button",
+            "value": "OFF",
+            "permission": {
+                "current-state": "Pause"
+            }
+        }
+    }
+}
