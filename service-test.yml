@@ -1,14 +1,11 @@
-
-%YAML 1.3
+%YAML 1.2
 ---
 afbidl: "0.1"
 
 info:
   apiname: test service
   title: Service for geolocation
-  description:
-        test service reports current WGS84 coordinates from GNSS devices
-        via the gpsd application.
+  description: test service reports current WGS84 coordinates from GNSS devices via the gpsd application.
   version: "0.1"
   author: AGL
   maintainer: Scott Rifenbark
@@ -42,32 +39,27 @@ verbs:
         reply:
             success:
                 schema: $/schemas/none
-
     unsubscribe:
         description: unsubscribe to test service
         request: $/schemas/subscribtion
         reply:
             success:
                 schema: $/schemas/none
-				
 events:
     btn-pause:
         schema: $/schemas/init
 
     btn-resume:
         schema: $/schemas/init
-	
-state-machines:	
-
-	Initialisation: Disengaged
-	
-	Disengaged:
+state-machines:
+    Initialisation: Disengaged
+    Disengaged:
         subscribe:
             success:
                 set-state: Engaged
-            error: 
+            error:
                 set-state: Disengaged
-      
+                
     Engaged: 
         unsubscribe:
             success:
