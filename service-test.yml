@@ -4,10 +4,10 @@
 afbidl: "0.1"
 
 info:
-  apiname: gps
+  apiname: test service
   title: Service for geolocation
   description:
-        GPS service reports current WGS84 coordinates from GNSS devices
+        test service reports current WGS84 coordinates from GNSS devices
         via the gpsd application.
   version: "0.1"
   author: AGL
@@ -24,10 +24,10 @@ tools:
 
     doc:
         id: test-api
-        keywords: gps
+        keywords: test
         author:
         version:
-        src_prefix: api-gps
+        src_prefix: api-test
         chapters:
         - name: Abstract
           url: abstract.md
@@ -38,14 +38,14 @@ verbs:
 
     subscribe:
         description: subscribe to test service
-        request: $/schemas/subscription
+        request: $/schemas/subscribtion
         reply:
             success:
                 schema: $/schemas/none
 
     unsubscribe:
         description: unsubscribe to test service
-        request: $/schemas/subscription
+        request: $/schemas/subscribtion
         reply:
             success:
                 schema: $/schemas/none
@@ -90,6 +90,7 @@ state-machines:
 schemas:
     btn-pause:
         description: mettre le service en veille
+        type: switch-button
         type: ON
         permission:
             current-state: Engaged
