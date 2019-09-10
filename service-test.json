@@ -37,7 +37,7 @@
     "verbs": {
         "subscribe": {
             "description": "subscribe to test service",
-            "request": "$/schemas/subscribtion",
+            "request": "$/schemas/subscription",
             "reply": {
                 "success": {
                     "schema": "$/schemas/none"
@@ -46,7 +46,7 @@
         },
         "unsubscribe": {
             "description": "unsubscribe to test service",
-            "request": "$/schemas/subscribtion",
+            "request": "$/schemas/subscription",
             "reply": {
                 "success": {
                     "schema": "$/schemas/none"
@@ -56,21 +56,18 @@
     },
     "events": {
         "btn-pause": {
-            "schema": "$/schemas/init"
+            "schema": "$/schemas/init/pause-resume"
         },
         "btn-resume": {
-            "schema": "$/schemas/init"
+            "schema": "$/schemas/init/pause-resume"
         }
     },
     "state-machines": {
-        "Initialisation": "Disengaged",
+        "Init-state": "Disengaged",
         "Disengaged": {
             "subscribe": {
                 "success": {
                     "set-state": "Engaged"
-                },
-                "error": {
-                    "set-state": "Disengaged"
                 }
             }
         },
@@ -78,46 +75,40 @@
             "unsubscribe": {
                 "success": {
                     "set-state": "Disengaged"
-                },
-                "error": {
-                    "set-state": "Engaged"
                 }
             },
             "btn-pause": {
                 "success": {
                     "set-state": "Pause"
-                },
-                "error": {
-                    "set-status": "Engaged"
                 }
             }
         },
-        "Pause": {
+        "Paused": {
             "btn-resume": {
                 "success": {
                     "set-state": "Engaged"
-                },
-                "error": {
-                    "set-state": "Pause"
                 }
             }
         }
     },
     "schemas": {
-        "btn-pause": {
-            "description": "mettre le service en veille",
-            "type": "switch-button",
-            "value": "ON",
-            "permission": {
-                "current-state": "Engaged"
+        "subscription": {
+            "name": "connect",
+            "required": {
+                "code": "SA_SUB,SA_UNSUB"
             }
         },
-        "btn-resume": {
-            "description": "relancer le service",
-            "type": "switch-button",
-            "value": "OFF",
-            "permission": {
-                "current-state": "Pause"
+        "init": {
+            "pause-resume": {
+                "name": "pause-resume",
+                "id": "swbtn",
+                "permissions": {
+                    "allowed-services": "",
+                    "current-state": {
+                        "swbtn-pause": "Engaged",
+                        "swbtn-resume": "Pause"
+                    }
+                }
             }
         }
     }
