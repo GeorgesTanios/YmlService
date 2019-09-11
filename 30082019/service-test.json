@@ -1,0 +1,125 @@
+{
+    "afbidl": "0.1",
+    "info": {
+        "apiname": "test service",
+        "title": "Service for geolocation",
+        "description": "test service reports current WGS84 coordinates from GNSS devices via the gpsd application.",
+        "version": "0.1",
+        "author": "AGL",
+        "maintainer": "Scott Rifenbark",
+        "homepage": "https://doc.automotivelinux.org/..."
+    },
+    "tools": {
+        "afb-genskel": {
+            "scope": "static",
+            "prefix": "req_",
+            "postfix": "_cb",
+            "init": "init_test"
+        },
+        "doc": {
+            "id": "test-api",
+            "keywords": "test",
+            "author": null,
+            "version": null,
+            "src_prefix": "api-test",
+            "chapters": [
+                {
+                    "name": "Abstract",
+                    "url": "abstract.md"
+                },
+                {
+                    "name": "User Guide",
+                    "url": "userguide.md"
+                }
+            ]
+        }
+    },
+    "verbs": {
+        "subscribe": {
+            "id": "subs_verbs_1",
+            "description": "subscribe to test service",
+            "request": "$/schemas/subscription",
+            "reply": {
+                "success": {
+                    "schema": "$/schemas/none",
+                    "message": "You have subscribed"
+                }
+            }
+        },
+        "unsubscribe": {
+            "id": "subs_verbs_1",
+            "description": "unsubscribe to test service",
+            "request": "$/schemas/subscription",
+            "reply": {
+                "success": {
+                    "schema": "$/schemas/none",
+                    "message": "You have unsubscribed"
+                }
+            }
+        }
+    },
+    "events": {
+        "btn-pause": {
+            "id": "pause_event_1",
+            "schema": "$/schemas/init/pause-resume"
+        },
+        "btn-resume": {
+            "id": "resume_event_1",
+            "schema": "$/schemas/init/pause-resume"
+        }
+    },
+    "state-machines": {
+        "Init-state": "Disengaged",
+        "Disengaged": {
+            "subscribe": {
+                "success": {
+                    "set-state": "Engaged",
+                    "message": "You are in Engaged"
+                }
+            }
+        },
+        "Engaged": {
+            "unsubscribe": {
+                "success": {
+                    "set-state": "Disengaged",
+                    "message": "You are in Disengaged"
+                }
+            },
+            "btn-pause": {
+                "success": {
+                    "set-state": "Pause",
+                    "message": "You are in a pause"
+                }
+            }
+        },
+        "Paused": {
+            "btn-resume": {
+                "success": {
+                    "set-state": "Engaged",
+                    "message": "You are in Engaged"
+                }
+            }
+        }
+    },
+    "schemas": {
+        "subscription": {
+            "name": "connect",
+            "required": {
+                "code": "SA_SUB,SA_UNSUB"
+            }
+        },
+        "init": {
+            "pause-resume": {
+                "name": "pause-resume",
+                "id": "swbtn",
+                "permissions": {
+                    "allowed-services": "SV1_A,SV3_B",
+                    "current-state": {
+                        "btn-pause": "Engaged",
+                        "btn-resume": "Pause"
+                    }
+                }
+            }
+        }
+    }
+}
